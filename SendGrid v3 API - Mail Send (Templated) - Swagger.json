@@ -1,0 +1,222 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "3.0",
+        "title": "SendGrid v3 API - Mail Send (Templated)",
+        "description": "SendGrid v3 API - Mail Send (Templated)"
+    },
+    "host": "api.sendgrid.com",
+    "basePath": "/v3",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "Authorization": {
+            "name": "Authorization",
+            "type": "apiKey",
+            "in": "header"
+        }
+    },
+    "paths": {
+        "/mail/send": {
+            "post": {
+                "operationId": "POST_mail-send-template",
+                "summary": "SendGrid v3 Mail Send (Templated)",
+                "tags": [
+                    "Mail Send"
+                ],
+                "description": "Send an email via SendGrid from a template.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "subject": {
+                                    "title": "Subject",
+                                    "type": "string",
+                                    "description": "The global, or message-level, subject of your email. You may override this at the personalisation level.",
+                                    "minLength": 1
+                                },
+                                "template_id": {
+                                    "title": "Template ID",
+                                    "type": "string",
+                                    "description": "The id of a SendGrid transcational template that you would like to use."
+                                },
+                                "personalizations": {
+                                    "title": "Data",
+                                    "type": "array",
+                                    "description": "Defines who should receive an individual message and how that message should be handled.",
+                                    "uniqueItems": false,
+                                    "maxItems": 50,
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "to": {
+                                                "type": "array",
+                                                "description": "One or more recipients - may contain the name, but must always contain the email address.",
+                                                "minItems": 1,
+                                                "maxItems": 50,
+                                                "items":  {
+                                                    "title": "To",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "email": {
+                                                            "title": "Email",
+                                                            "type": "string",
+                                                            "format": "email",
+                                                            "description": "The email address of the recipient."
+                                                        },
+                                                        "name": {
+                                                            "title": "Name",
+                                                            "type": "string",
+                                                            "description": "The name of the recipient."
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "email"
+                                                    ]
+                                                }
+                                            },
+                                            "cc": {
+                                                "type": "array",
+                                                "description": "One or more recipients - may contain the name, but must always contain the email address.",
+                                                "maxItems": 50,
+                                                "items":  {
+                                                    "title": "CC",
+                                                    "type": "object",
+                                                    "properties":  {
+                                                        "email": {
+                                                            "title": "Email",
+                                                            "type": "string",
+                                                            "format": "email",
+                                                            "description": "The email address of the recipient."
+                                                        },
+                                                        "name": {
+                                                            "title": "Name",
+                                                            "type": "string",
+                                                            "description": "The name of the recipient."
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "email"
+                                                    ]
+                                                }
+                                            },
+                                            "bcc": {
+                                                "type": "array",
+                                                "description": "One or more recipients - may contain the name, but must always contain the email address.",
+                                                "maxItems": 50,
+                                                "items":  {
+                                                    "title": "BCC",
+                                                    "type": "object",
+                                                    "properties":  {
+                                                        "email": {
+                                                            "title": "Email",
+                                                            "type": "string",
+                                                            "format": "email",
+                                                            "description": "The email address of the recipient."
+                                                        },
+                                                        "name": {
+                                                            "title": "Name",
+                                                            "type": "string",
+                                                            "description": "The name of the recipient."
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "email"
+                                                    ]
+                                                }
+                                            },
+                                            "subject": {
+                                                "title": "Subject",
+                                                "type": "string",
+                                                "description": "The subject of your email.",
+                                                "minLength": 1
+                                            },
+                                            "dynamic_template_data": {
+                                                "title": "Template Data",
+                                                "type": "object",
+                                                "description": "A collection of key/value pairs as a JSON string, e.g.: {\"FirstName\":\"Brian\"}.",
+                                                "maxProperties": 50
+                                            }
+                                        }
+                                    }
+                                },
+                                "from":  {
+                                    "title": "From",
+                                    "type": "object",
+                                    "properties":  {
+                                        "email": {
+                                            "title": "Email",
+                                            "type": "string",
+                                            "format": "email",
+                                            "description": "The email address of the recipient."
+                                        },
+                                        "name": {
+                                            "title": "Name",
+                                            "type": "string",
+                                            "description": "The name of the recipient."
+                                        }
+                                    },
+                                    "required": [
+                                        "email"
+                                    ]
+                                },
+                                "reply_to":  {
+                                    "title": "Reply To",
+                                    "type": "object",
+                                    "properties":  {
+                                        "email": {
+                                            "title": "Email",
+                                            "type": "string",
+                                            "format": "email",
+                                            "description": "The email address of the recipient."
+                                        },
+                                        "name": {
+                                            "title": "Name",
+                                            "type": "string",
+                                            "description": "The name of the recipient."
+                                        }
+                                    },
+                                    "required": [
+                                        "email"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "",
+                        "schema": {
+                            "type": "null"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        }
+    },
+    "parameters": {
+        "trait:authorizationHeader:Authorization": {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "Bearer <<apiKey>>"
+        }
+    }
+}
