@@ -1,4 +1,5 @@
 # SendGrid (By Template) for Microsoft Flow and PowerApps Swagger / OpenAPI definition
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 
 SendGrid v3 API Swagger file for sending transactional templated emails from Microsoft Flow and PowerApps.
 
