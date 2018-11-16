@@ -146,6 +146,11 @@
                                                 "type": "object",
                                                 "description": "A collection of key/value pairs as a JSON string, e.g.: {\"FirstName\":\"Brian\"}.",
                                                 "maxProperties": 50
+                                            },
+                                            "substitutions": {
+                                                "type": "object",
+                                                "description": "A collection of key/value pairs following the pattern \"substitution_tag\":\"value to substitute\". All are assumed to be strings. These substitutions will apply to the text and html content of the body of your email, in addition to the `subject` and `reply-to` parameters.",
+                                                "maxProperties": 10000
                                             }
                                         }
                                     }
@@ -189,6 +194,69 @@
                                     "required": [
                                         "email"
                                     ]
+                                },
+                                "content": {
+                                    "type": "array",
+                                    "description": "An array in which you may specify the content of your email. You can include multiple mime types of content, but you must specify at least one mime type. To include more than one mime type, simply add another object to the array containing the `type` and `value` parameters.",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The mime type of the content you are including in your email. For example, “text/plain” or “text/html”.",
+                                                "minLength": 1
+                                            },
+                                            "value": {
+                                                "type": "string",
+                                                "description": "The actual content of the specified mime type that you are including in your email.",
+                                                "minLength": 1
+                                            }
+                                        },
+                                        "required": [
+                                            "type",
+                                            "value"
+                                        ]
+                                    }
+                                },
+                                "attachments": {
+                                    "type": "array",
+                                    "description": "An array of objects in which you can specify any attachments you want to include.",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "content": {
+                                                "type": "string",
+                                                "description": "The Base64 encoded content of the attachment.",
+                                                "minLength": 1
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The mime type of the content you are attaching. For example, “text/plain” or “text/html”.",
+                                                "minLength": 1
+                                            },
+                                            "filename": {
+                                                "type": "string",
+                                                "description": "The filename of the attachment."
+                                            },
+                                            "disposition": {
+                                                "type": "string",
+                                                "default": "attachment",
+                                                "description": "The content-disposition of the attachment specifying how you would like the attachment to be displayed. For example, “inline” results in the attached file being displayed automatically within the message while “attachment” results in the attached file requiring some action to be taken before it is displayed (e.g. opening or downloading the file).",
+                                                "enum": [
+                                                    "inline",
+                                                    "attachment"
+                                                ]
+                                            },
+                                            "content_id": {
+                                                "type": "string",
+                                                "description": "The content id for the attachment. This is used when the disposition is set to “inline” and the attachment is an image, allowing the file to be displayed within the body of your email."
+                                            }
+                                        },
+                                        "required": [
+                                            "content",
+                                            "filename"
+                                        ]
+                                    }
                                 }
                             }
                         }
